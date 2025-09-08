@@ -1,9 +1,3 @@
-
----
-
-# ⚡ Backend (Node + Express + MongoDB)
-
-```markdown
 # 🎓 Rosterly Backend
 
 This is the backend server for **Rosterly**, built with **Node.js + Express**.  
@@ -12,11 +6,11 @@ It handles student CRUD operations, integrates with **MongoDB**, and uploads ima
 ---
 
 ## 🚀 Features
-- Add new student with profile image (Cloudinary upload).
+- Add new student with profile image (**Cloudinary upload**).
 - Get all students.
 - Update student details.
 - Delete student record.
-- Fetch available courses from mock API.
+- Manage courses (add & fetch).
 
 ---
 
@@ -25,45 +19,47 @@ It handles student CRUD operations, integrates with **MongoDB**, and uploads ima
 - **MongoDB** + **Mongoose**
 - **Cloudinary** (image hosting)
 - **Multer** (file handling)
-- **CORS** enabled for frontend communication
+- **CORS** (frontend communication)
 
 ---
 
 ## ⚡ API Endpoints
 
 ### 👨‍🎓 Students
-- `POST /student/addStudent` → Add new student (multipart/form-data).
-- `GET /student/getAll` → Get all students.
-- `PUT /student/update/:id` → Update student by ID.
-- `DELETE /student/delete/:id` → Delete student by ID.
+| Method | Endpoint                   | Description                        |
+|--------|----------------------------|------------------------------------|
+| POST   | `/student/addStudent`      | Add new student (multipart/form-data) |
+| GET    | `/student/getAll`          | Get all students                   |
+| PUT    | `/student/update/:id`      | Update student by ID               |
+| DELETE | `/student/delete/:id`      | Delete student by ID               |
 
 ### 📚 Courses
-- `GET /getCourses` → Returns all courses (courseName only).
+| Method | Endpoint         | Description                 |
+|--------|-----------------|-----------------------------|
+| POST   | `/addCourse`    | Add a new course            |
+| GET    | `/getCourses`   | Returns all courses         |
 
 ---
 
-## 📂 Folder Structure
+## 📂 Setup & Project Structure
+
+```yaml
 backend/
 │── models/
-│ └── student.model.js
-│── server.js
-│── .env
-│── package.json
+│   └── student.model.js        # Mongoose schema for student
+│   └── student.model.js        # Mongoose schema for course
+│── server.js                   # Express server
+│── package.json                # Dependencies & scripts
+│── .env                        # Environment variables
 
+# Environment Variables (.env)
+MONGODB_URL: your_mongodb_connection
+CLOUDINARY_CLOUD_NAME: your_cloud_name
+CLOUDINARY_API_KEY: your_api_key
+CLOUDINARY_API_SECRET: your_api_secret
 
----
+# Install dependencies
+npm install
 
-## ⚡ Setup
-1. Clone repo and move to backend folder.
-2. Install dependencies:
-    npm install
-
-3. Add a .env file
-
-MONGODB_URL=your_mongodb_connection
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-
-4. Run the server
+# Run the server
 npm start
