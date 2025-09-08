@@ -9,7 +9,7 @@ import fs from "fs";
 
 //model
 import studentModel from "./models/student.model.js";
-import e from "express";
+import courseModel from "./models/course.model.js";
 
 //configs
 dotenv.config();
@@ -46,6 +46,33 @@ const dbConnection = async () => {
 }
 dbConnection();
 
+//add Course
+app.post("/addCourse", async (req,res)=>{
+  try{
+    const { courseName } = req.body;
+  let newCourse = await new courseModel({
+    courseName : courseName,
+  })
+  await newCourse.save();
+  res.status(200).send("Course Successfully Added !!");
+  }catch(e){
+    res.status(400).send(e);
+  }
+  // res.send("hiii");
+})
+
+//get courses
+app.get("/getCourses", async (req,res) =>{
+  try{
+    const allCourses = await courseModel.find({});
+    res.status(200).send(allCourses)
+  }catch{
+    res.status(400).send("Failed to Fetch !!");
+  }
+})
+
+
+
 //CREATE
 app.post("/student/addStudent", upload.single("image"), async (req, res) => {
   try {
@@ -74,6 +101,7 @@ app.post("/student/addStudent", upload.single("image"), async (req, res) => {
     res.status(400).send("Failed !!");
   }
 });
+
 //READ
 app.get("/student/getAll", async (req,res)=>{
     const students = await studentModel.find({});
@@ -81,7 +109,6 @@ app.get("/student/getAll", async (req,res)=>{
 });
 
 //Update
-
 app.put("/student/update/:id", upload.single("pic"), async (req, res) => {
   try {
     const { id } = req.params;
@@ -123,9 +150,9 @@ app.delete("/student/delete/:id", async (req, res) => {
 
 app.get("/",(req,res)=>{
     res.send("Server chalu h bhai !!");
-})
+});
 
-app.listen(8080,"0.0.0.0",()=>{
-    console.log("Server is listening to 8080");
+app.listen(3000,"0.0.0.0",()=>{
+    console.log("Server is listening to 3000");
     
-})
+});
